@@ -47,6 +47,15 @@ function multerErrorHandler(
   next(err);
 }
 
+router.get('/import', (_req: Request, res: Response) => {
+  res.json({
+    success: true,
+    message: "The /api/import endpoint accepts POST requests with a CSV file upload (multipart/form-data, field name 'file').",
+    method: 'POST',
+    contentType: 'multipart/form-data',
+  });
+});
+
 router.post('/import', upload.single('file'), multerErrorHandler, handleImport);
 
 export { router as importRouter };
