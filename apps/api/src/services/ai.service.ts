@@ -12,14 +12,14 @@ import { asyncPool } from '../utils/asyncPool';
 
 // ── Configuration ──────────────────────────────────────────────────────────
 
-const BATCH_SIZE     = 8;
+const BATCH_SIZE     = 5;
 const MAX_RETRIES    = parseInt(process.env.MAX_RETRIES            ?? '3', 10);
 const MAX_CONCURRENT = 1;
 
 // llama-3.3-70b-versatile: Groq's best general-purpose model with native
 // tool-calling support (deprecated preview fine-tunes not needed).
 const MODEL      = 'llama-3.3-70b-versatile';
-const FALLBACK_MODEL = 'llama-3.1-8b-instant';
+const FALLBACK_MODEL = 'llama-3.3-70b-versatile';
 const MAX_TOKENS = 8096;
 
 // OpenAI-compatible client pointed at Groq's base URL

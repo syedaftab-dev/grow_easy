@@ -151,7 +151,7 @@ const EMIT_CRM_RECORDS_PARAMETERS = {
   properties: {
     imported: {
       type: 'array',
-      description: 'Records successfully extracted (have at least an email or mobile).',
+      description: 'Extracted.',
       items: {
         type: 'object',
         additionalProperties: false,
@@ -178,12 +178,11 @@ const EMIT_CRM_RECORDS_PARAMETERS = {
           possession_time: { type: 'string' },
           description:     { type: 'string' },
         },
-        // No field in `required` — model omits fields it cannot determine.
       },
     },
     skipped: {
       type: 'array',
-      description: 'Rows that had neither an email nor a mobile number.',
+      description: 'Skipped.',
       items: {
         type: 'object',
         required: ['reason'],
@@ -191,11 +190,11 @@ const EMIT_CRM_RECORDS_PARAMETERS = {
         properties: {
           reason: {
             type: 'string',
-            description: 'Why this row was skipped.',
+            description: 'Reason.',
           },
           original_data: {
             type: 'object',
-            description: 'Raw key-value pairs from the source CSV row.',
+            description: 'Raw row.',
             additionalProperties: { type: 'string' },
           },
         },
@@ -208,9 +207,7 @@ export const EMIT_CRM_RECORDS_TOOL = {
   type: 'function' as const,
   function: {
     name: 'emit_crm_records',
-    description:
-      'Emit extracted GrowEasy CRM records for all rows in the batch. ' +
-      'Every input row must appear in exactly one of the two arrays.',
+    description: 'Emit CRM records.',
     parameters: EMIT_CRM_RECORDS_PARAMETERS,
   },
 };

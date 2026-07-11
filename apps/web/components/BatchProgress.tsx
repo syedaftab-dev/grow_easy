@@ -92,7 +92,7 @@ export default function BatchProgress({ totalRows }: Props) {
 
         {/* Batch info */}
         <p className="text-center text-xs text-slate-600 mt-4">
-          Processing in batches of 8 · sequentially
+          Processing in batches of 5 · sequentially
         </p>
       </div>
     </div>
