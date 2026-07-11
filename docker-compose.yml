@@ -1,8 +1,8 @@
 services:
   api:
     build:
-      context: ./apps/api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/api/Dockerfile
     container_name: groweasy-api
     restart: unless-stopped
     ports:
@@ -20,8 +20,8 @@ services:
 
   web:
     build:
-      context: ./apps/web
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/web/Dockerfile
       args:
         - NEXT_PUBLIC_API_URL=http://localhost:4000
     container_name: groweasy-web
