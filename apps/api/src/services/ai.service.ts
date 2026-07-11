@@ -12,13 +12,14 @@ import { asyncPool } from '../utils/asyncPool';
 
 // ── Configuration ──────────────────────────────────────────────────────────
 
-const BATCH_SIZE     = parseInt(process.env.BATCH_SIZE             ?? '20', 10);
-const MAX_RETRIES    = parseInt(process.env.MAX_RETRIES            ?? '3',  10);
-const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT_BATCHES ?? '3',  10);
+const BATCH_SIZE     = parseInt(process.env.BATCH_SIZE             ?? '8', 10);
+const MAX_RETRIES    = parseInt(process.env.MAX_RETRIES            ?? '3', 10);
+const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT_BATCHES ?? '1', 10);
 
 // llama-3.3-70b-versatile: Groq's best general-purpose model with native
 // tool-calling support (deprecated preview fine-tunes not needed).
 const MODEL      = 'llama-3.3-70b-versatile';
+const FALLBACK_MODEL = 'llama-3.1-8b-instant';
 const MAX_TOKENS = 8096;
 
 // OpenAI-compatible client pointed at Groq's base URL
@@ -69,9 +70,11 @@ async function extractBatchWithRetry(
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
-      const result = await extractSingleBatch(batch);
+      // Attempt 1 uses Llama 3.3 70B; retry attempts switch to Llama 3.1 8B instant (higher TPM allowance)
+      const modelToUse = attempt === 1 ? MODEL : FALLBACK_MODEL;
+      const result = await extractSingleBatch(batch, modelToUse);
       console.log(
-        `[ai] Batch ${batchIndex + 1}/${totalBatches} ✓` +
+        `[ai] Batch ${batchIndex + 1}/${totalBatches} ✓ (${modelToUse})` +
         ` imported=${result.imported.length} skipped=${result.skipped.length}`,
       );
       return result;
@@ -80,10 +83,10 @@ async function extractBatchWithRetry(
       const isLast = attempt === MAX_RETRIES;
 
       if (!isLast) {
-        const delayMs = Math.pow(2, attempt) * 500; // 1 000ms, 2 000ms, 4 000ms
+        const delayMs = attempt * 1500;
         console.warn(
           `[ai] Batch ${batchIndex + 1}/${totalBatches} attempt ${attempt} failed` +
-          ` (retrying in ${delayMs}ms): ${errorMessage(err)}`,
+          ` (retrying in ${delayMs}ms with fallback model): ${errorMessage(err)}`,
         );
         await sleep(delayMs);
       }
@@ -107,9 +110,12 @@ async function extractBatchWithRetry(
 
 // ── Single batch call ──────────────────────────────────────────────────────
 
-async function extractSingleBatch(batch: RawRecord[]): Promise<ToolOutput> {
+async function extractSingleBatch(
+  batch: RawRecord[],
+  modelToUse: string = MODEL,
+): Promise<ToolOutput> {
   const response = await client.chat.completions.create({
-    model:       MODEL,
+    model:       modelToUse,
     max_tokens:  MAX_TOKENS,
     temperature: 0,
     messages: [
