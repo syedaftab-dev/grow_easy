@@ -61,18 +61,18 @@ export default function DropZone({ onFileAccepted, error }: Props) {
           aria-label="Upload CSV file"
           className={[
             'w-full rounded-2xl border-2 border-dashed p-12 flex flex-col items-center gap-5',
-            'cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-violet-500',
+            'cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-brand',
             isDragging
-              ? 'border-violet-500 bg-violet-500/10 scale-[1.01]'
-              : 'border-slate-700 bg-slate-900/60 hover:border-violet-600 hover:bg-violet-500/5',
+              ? 'border-brand bg-brand/10 scale-[1.01]'
+              : 'border-slate-700 bg-slate-900/60 hover:border-brand hover:bg-brand/5',
           ].join(' ')}
         >
           {/* Icon */}
           <div className={[
             'w-16 h-16 rounded-2xl flex items-center justify-center transition-colors duration-200',
-            isDragging ? 'bg-violet-600' : 'bg-slate-800',
+            isDragging ? 'bg-brand' : 'bg-slate-800',
           ].join(' ')}>
-            <svg className="w-8 h-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
             </svg>
           </div>

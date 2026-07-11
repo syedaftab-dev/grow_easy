@@ -55,13 +55,13 @@ export default function BatchProgress({ totalRows }: Props) {
           <div className="relative w-20 h-20">
             {/* Outer spinning ring */}
             <svg className="absolute inset-0 w-full h-full animate-spin" viewBox="0 0 80 80">
-              <circle cx="40" cy="40" r="34" fill="none" stroke="rgb(124 58 237 / 0.15)" strokeWidth="5" />
-              <circle cx="40" cy="40" r="34" fill="none" stroke="rgb(139 92 246)" strokeWidth="5"
+              <circle cx="40" cy="40" r="34" fill="none" stroke="rgb(21 128 61 / 0.15)" strokeWidth="5" />
+              <circle cx="40" cy="40" r="34" fill="none" stroke="rgb(22 163 74)" strokeWidth="5"
                 strokeDasharray="213" strokeDashoffset="160" strokeLinecap="round" />
             </svg>
             {/* Inner icon */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <svg className="w-8 h-8 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
               </svg>
             </div>
@@ -84,7 +84,7 @@ export default function BatchProgress({ totalRows }: Props) {
           </div>
           <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-violet-600 to-violet-400 transition-all duration-200 ease-out"
+              className="h-full rounded-full bg-gradient-to-r from-brand to-green-500 transition-all duration-200 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -92,7 +92,7 @@ export default function BatchProgress({ totalRows }: Props) {
 
         {/* Batch info */}
         <p className="text-center text-xs text-slate-600 mt-4">
-          Processing in batches of 20 · up to 3 concurrent
+          Processing in batches of 8 · sequentially
         </p>
       </div>
     </div>

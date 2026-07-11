@@ -25,8 +25,8 @@ export default function Stepper({ currentStep }: Props) {
               <div
                 className={[
                   'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300',
-                  isDone   ? 'bg-violet-600 text-white'
-                  : isActive ? 'bg-violet-600 text-white ring-4 ring-violet-600/25'
+                  isDone   ? 'bg-brand text-white'
+                  : isActive ? 'bg-brand text-white ring-4 ring-brand/25'
                   : 'bg-slate-800 text-slate-500 ring-1 ring-slate-700',
                 ].join(' ')}
               >
@@ -48,11 +48,11 @@ export default function Stepper({ currentStep }: Props) {
                 {step.label}
               </span>
             </div>
-
+ 
             {/* Connector line */}
             {idx < STEPS.length - 1 && (
               <div className="flex-1 mx-3 sm:mx-4 h-px transition-colors duration-500"
-                style={{ background: isDone ? 'rgb(124 58 237)' : 'rgb(30 41 59)' }}
+                style={{ background: isDone ? 'rgb(21 128 61)' : 'rgb(30 41 59)' }}
               />
             )}
           </Fragment>

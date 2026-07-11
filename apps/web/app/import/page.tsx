@@ -78,7 +78,7 @@ export default function ImportPage() {
       <header className="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-sm sticky top-0 z-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-3">
           {/* Logo mark */}
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-violet-800 flex items-center justify-center shrink-0 shadow-lg shadow-violet-900/40">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand to-green-800 flex items-center justify-center shrink-0 shadow-lg shadow-green-950/40">
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
@@ -194,13 +194,13 @@ export default function ImportPage() {
               <button
                 id="confirm-import-btn"
                 onClick={handleConfirmImport}
-                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white text-sm font-semibold transition-all shadow-lg shadow-violet-900/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-brand hover:bg-brand/90 active:bg-green-800 text-white text-sm font-semibold transition-all shadow-lg shadow-green-950/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
                 </svg>
                 Confirm Import
-                <span className="ml-1 text-violet-200 font-normal">· {totalRows} rows</span>
+                <span className="ml-1 text-green-200 font-normal">· {totalRows} rows</span>
               </button>
             </div>
           </div>

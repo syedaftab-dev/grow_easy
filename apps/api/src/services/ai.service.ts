@@ -12,9 +12,9 @@ import { asyncPool } from '../utils/asyncPool';
 
 // ── Configuration ──────────────────────────────────────────────────────────
 
-const BATCH_SIZE     = parseInt(process.env.BATCH_SIZE             ?? '8', 10);
+const BATCH_SIZE     = 8;
 const MAX_RETRIES    = parseInt(process.env.MAX_RETRIES            ?? '3', 10);
-const MAX_CONCURRENT = parseInt(process.env.MAX_CONCURRENT_BATCHES ?? '1', 10);
+const MAX_CONCURRENT = 1;
 
 // llama-3.3-70b-versatile: Groq's best general-purpose model with native
 // tool-calling support (deprecated preview fine-tunes not needed).
@@ -80,13 +80,38 @@ async function extractBatchWithRetry(
       return result;
     } catch (err) {
       lastError = err;
+      const errStr = errorMessage(err);
+      const isTokenLimitError =
+        errStr.includes('413') ||
+        errStr.toLowerCase().includes('request too large') ||
+        errStr.toLowerCase().includes('token-limit') ||
+        errStr.toLowerCase().includes('tpm') ||
+        errStr.toLowerCase().includes('rate limit') ||
+        (err && typeof err === 'object' && ('status' in err) && (err as any).status === 413);
+
+      if (isTokenLimitError && batch.length > 1) {
+        const mid = Math.floor(batch.length / 2);
+        const half1 = batch.slice(0, mid);
+        const half2 = batch.slice(mid);
+        console.warn(
+          `[ai] Batch ${batchIndex + 1}/${totalBatches} hit TPM/413 error (limit exceeded). ` +
+          `Splitting batch of size ${batch.length} into two halves of size ${half1.length} and ${half2.length}...`
+        );
+        const res1 = await extractBatchWithRetry(half1, batchIndex, totalBatches);
+        const res2 = await extractBatchWithRetry(half2, batchIndex, totalBatches);
+        return {
+          imported: [...res1.imported, ...res2.imported],
+          skipped: [...res1.skipped, ...res2.skipped],
+        };
+      }
+
       const isLast = attempt === MAX_RETRIES;
 
       if (!isLast) {
         const delayMs = attempt * 1500;
         console.warn(
           `[ai] Batch ${batchIndex + 1}/${totalBatches} attempt ${attempt} failed` +
-          ` (retrying in ${delayMs}ms with fallback model): ${errorMessage(err)}`,
+          ` (retrying in ${delayMs}ms with fallback model): ${errStr}`,
         );
         await sleep(delayMs);
       }
