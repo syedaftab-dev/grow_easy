@@ -2,8 +2,8 @@ const http = require('http');
 const { spawn } = require('child_process');
 
 const PORT = process.env.PORT || 10000;
-const API_PORT = 4000;
-const WEB_PORT = 3000;
+const API_PORT = 4040;
+const WEB_PORT = 3030;
 
 console.log('🚀 Initializing GrowEasy Combined Gateway...');
 

@@ -109,8 +109,9 @@ async function extractBatchWithRetry(
 
 async function extractSingleBatch(batch: RawRecord[]): Promise<ToolOutput> {
   const response = await client.chat.completions.create({
-    model:      MODEL,
-    max_tokens: MAX_TOKENS,
+    model:       MODEL,
+    max_tokens:  MAX_TOKENS,
+    temperature: 0,
     messages: [
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'user',   content: buildUserMessage(batch) },
