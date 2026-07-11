@@ -16,7 +16,7 @@ COPY apps/web/ ./apps/web/
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 ENV NEXT_PUBLIC_API_URL=""
-RUN cd apps/web && npm run build
+RUN mkdir -p /app/apps/web/public && cd apps/web && npm run build
 
 # Stage 3: Combined Production Runner
 FROM node:20-alpine AS runner
