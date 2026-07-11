@@ -1,0 +1,23 @@
+# Version control & docs
+.git
+.gitignore
+README.md
+
+# Dependencies & Builds
+node_modules
+npm-debug.log
+dist
+build
+.next
+out
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Assignment / instructions files
+assignment_text.txt
+Software Developer*
+*.docx
+*.doc

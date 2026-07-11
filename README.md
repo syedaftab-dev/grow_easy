@@ -108,6 +108,26 @@ To guarantee strict database/CRM integrity:
    npm run dev
    ```
 
+### Production Deployment with Docker Compose
+
+To start both the Express API and Next.js frontend in containerized production mode:
+
+1. **Set your Groq API key in your environment**:
+   ```bash
+   # Linux / macOS / Git Bash
+   export GROQ_API_KEY="your_groq_api_key_here"
+
+   # Windows PowerShell
+   $env:GROQ_API_KEY="your_groq_api_key_here"
+   ```
+
+2. **Build and start the containers**:
+   ```bash
+   docker compose up --build -d
+   ```
+   - **Frontend App**: `http://localhost:3000`
+   - **Express API**: `http://localhost:4000`
+
 ---
 
 ## 5. Environment Variables Reference
