@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #020617; }
+  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #475569; }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+}
+
+/* Light Theme Overrides */
+.light-theme {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.light-theme header {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: #e2e8f0 !important;
+}
+
+.light-theme [class*="bg-slate-900"],
+.light-theme [class*="bg-slate-950"] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.light-theme [class*="bg-slate-950/"] {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.light-theme [class*="bg-slate-700"],
+.light-theme [class*="bg-slate-800"] {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+.light-theme [class*="border-slate-"] {
+  border-color: #e2e8f0 !important;
+}
+
+.light-theme [class*="text-white"],
+.light-theme [class*="text-slate-100"],
+.light-theme [class*="text-slate-200"] {
+  color: #0f172a !important;
+}
+
+.light-theme [class*="text-slate-300"] {
+  color: #334155 !important;
+}
+
+.light-theme [class*="text-slate-400"] {
+  color: #475569 !important;
+}
+
+.light-theme [class*="text-amber-300"] {
+  color: #b45309 !important;
+}
+
+.light-theme [class*="text-amber-400"] {
+  color: #d97706 !important;
+}
+
+.light-theme table thead tr,
+.light-theme table thead th {
+  background-color: #f8fafc !important;
+  color: #334155 !important;
+}
+
+.light-theme table tbody tr:hover {
+  background-color: #f1f5f9 !important;
+}
