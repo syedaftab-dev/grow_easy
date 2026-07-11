@@ -32,6 +32,19 @@ app.use(express.json());
 // Routes
 app.use('/api', importRouter);
 
+// Root info endpoint
+app.get('/', (_req, res) => {
+  res.json({
+    name: 'GrowEasy CRM Importer API',
+    status: 'online',
+    version: '1.0.0',
+    endpoints: {
+      health: 'GET /health',
+      import: 'POST /api/import',
+    },
+  });
+});
+
 // Health check
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
