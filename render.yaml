@@ -1,0 +1,41 @@
+services:
+  # Backend Express API Service
+  - type: web
+    name: groweasy-api
+    env: docker
+    plan: free
+    region: oregon
+    dockerContext: ./apps/api
+    dockerfilePath: ./apps/api/Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: NODE_ENV
+        value: production
+      - key: GROQ_API_KEY
+        sync: false
+      - key: CORS_ORIGIN
+        fromService:
+          type: web
+          name: groweasy-web
+          property: url
+
+  # Frontend Next.js 14 Service
+  - type: web
+    name: groweasy-web
+    env: docker
+    plan: free
+    region: oregon
+    dockerContext: ./apps/web
+    dockerfilePath: ./apps/web/Dockerfile
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: groweasy-api
+          property: url

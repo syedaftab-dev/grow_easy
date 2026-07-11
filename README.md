@@ -128,6 +128,19 @@ To start both the Express API and Next.js frontend in containerized production m
    - **Frontend App**: `http://localhost:3000`
    - **Express API**: `http://localhost:4000`
 
+### One-Click Deployment on Render (Render Blueprint)
+
+This repository includes a `render.yaml` Blueprint specification that deploys **both services** (`groweasy-api` and `groweasy-web`) in a single Render environment with automatic URL cross-linking:
+
+1. Log into [Render Dashboard](https://dashboard.render.com).
+2. Click **New +** → **Blueprint**.
+3. Connect your GitHub repository (`grow_easy`).
+4. Render will automatically detect `render.yaml` and create both services:
+   - `groweasy-api` (Docker web service)
+   - `groweasy-web` (Docker web service)
+5. Enter your `GROQ_API_KEY` when prompted by Render and click **Apply**.
+   Render automatically injects the live backend API URL into `NEXT_PUBLIC_API_URL` and links `CORS_ORIGIN`.
+
 ---
 
 ## 5. Environment Variables Reference
